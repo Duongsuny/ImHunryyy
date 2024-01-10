@@ -23,7 +23,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
     List<BoxShadow> tabShadow = [
       BoxShadow(
           blurRadius: 15,
-          offset: const Offset(0, -5),
+          offset: const Offset(0, -3),
           color: Colors.brown.withOpacity(.1)),
       BoxShadow(
           blurRadius: 10,
@@ -31,7 +31,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
           color: Colors.brown.withOpacity(.2))
     ];
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 10),
+      padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
       child: Container(
         decoration: BoxDecoration(
             color: HungryColors().backYellow,
@@ -58,10 +58,10 @@ class _BottomNavBarState extends State<BottomNavBar> {
             gap: 10,
             selectedIndex: currentIndex,
             tabs:  [
-              GButton(icon: Icons.catching_pokemon_outlined, shadow: currentIndex == 0 ? tabShadow : [], text: "Nhớ"),
-              GButton(icon: Icons.coffee_outlined, shadow: currentIndex == 1 ? tabShadow : [], text: "Status"),
-              GButton(icon: Icons.map_outlined, shadow: currentIndex == 2 ? tabShadow : [], text: "Vị trí"),
-              GButton(icon: Icons.calendar_today_outlined, shadow: currentIndex == 3 ? tabShadow : [], text: "Lịch")
+              GButton(icon: Icons.catching_pokemon_outlined, shadow: currentIndex == 0 ? tabShadow : []),
+              GButton(icon: Icons.coffee_outlined, shadow: currentIndex == 1 ? tabShadow : []),
+              GButton(icon: Icons.map_outlined, shadow: currentIndex == 2 ? tabShadow : []),
+              GButton(icon: Icons.calendar_today_outlined, shadow: currentIndex == 3 ? tabShadow : [])
             ]),
       ),
     );
