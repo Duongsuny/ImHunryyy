@@ -13,11 +13,11 @@ class Loading extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Image.asset("lib/assets/loading_cat.png"),
-          Text("Đợi anh xíu",
+          Text("Đợi xíu",
           style: TextStyle(
             fontSize: 20,
             color: Theme.of(context).primaryColor,
-            fontWeight: FontWeight.bold
+            fontWeight: FontWeight.w900
           ))
         ],
       )

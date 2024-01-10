@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:im_hungry/pages/choose_role.dart';
+import 'package:im_hungry/pages/components_test.dart';
 import 'package:im_hungry/pages/loading.dart';
 
 void main() {
@@ -16,12 +17,11 @@ class ImHungry extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        primaryColor: HexColor("#49331e"),
-        textTheme: GoogleFonts.comfortaaTextTheme(
-        ),
-        scaffoldBackgroundColor: HexColor("#f0e7dc"),
+        primaryColor: HexColor("#754e29"),
+        textTheme: GoogleFonts.quicksandTextTheme(),
+        scaffoldBackgroundColor: HexColor("#fffaea"),
       ),
-      home: ChooseRole(),
+      home: ComponentsTest()
     );
   }
 }
