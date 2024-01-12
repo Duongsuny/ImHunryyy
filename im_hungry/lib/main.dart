@@ -4,9 +4,11 @@ import 'package:hexcolor/hexcolor.dart';
 import 'package:im_hungry/pages/choose_role.dart';
 import 'package:im_hungry/pages/components_test.dart';
 import 'package:im_hungry/pages/loading.dart';
+import 'package:intl/date_symbol_data_local.dart';
+
 
 void main() {
-  runApp(const ImHungry());
+  initializeDateFormatting().then((_) => runApp(const ImHungry()));
 }
 
 class ImHungry extends StatelessWidget {
@@ -17,7 +19,6 @@ class ImHungry extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        primaryColor: HexColor("#754e29"),
         textTheme: GoogleFonts.quicksandTextTheme(),
         scaffoldBackgroundColor: HexColor("#fffaea"),
       ),

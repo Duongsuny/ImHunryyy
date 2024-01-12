@@ -39,6 +39,8 @@ dependencies:
   hexcolor: ^3.0.1
   flutter_inset_box_shadow: ^1.0.8
   google_nav_bar: ^5.0.6
+  table_calendar: ^3.0.9
+  intl: 0.18.1
 
 dev_dependencies:
   flutter_test:
