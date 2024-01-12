@@ -2,6 +2,7 @@ import 'package:flutter/material.dart' hide BoxDecoration, BoxShadow;
 import 'package:flutter/services.dart';
 import 'package:im_hungry/colors.dart';
 import 'package:flutter_inset_box_shadow/flutter_inset_box_shadow.dart';
+import 'package:vibration/vibration.dart';
 
 class Bean extends StatefulWidget {
   const Bean({super.key});
@@ -26,8 +27,8 @@ class _BeanState extends State<Bean> {
       onTapDown: (_) {
         setState(() {
           isPressed = true;
-          HapticFeedback.lightImpact();
         });
+        Vibration.vibrate(duration: 50, amplitude: 255);
       },
       onTapUp: (_) {
         setState(() {

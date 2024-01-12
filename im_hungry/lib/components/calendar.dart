@@ -10,27 +10,51 @@ class Calendar extends StatefulWidget {
 }
 
 class _CalendarState extends State<Calendar> {
-  CalendarFormat calendarFormat = CalendarFormat.month;
   DateTime _focusedDay = DateTime.now();
   DateTime? _selectedDay;
-  Map<CalendarFormat, String> availableFormats = {
-    CalendarFormat.month: 'Tháng',
-    CalendarFormat.twoWeeks: '2 tuần',
-    CalendarFormat.week: 'Tuần'
-  };
-  //common style constants
-  TextStyle bold = TextStyle(
-      color: HungryColors().surfaceBrown,
-      fontSize: 17,
-      fontWeight: FontWeight.bold);
-
-  TextStyle normal = TextStyle(
-    color: HungryColors().surfaceBrown,
-    fontSize: 17,
-  );
   @override
   Widget build(BuildContext context) {
-    const offset = Offset(2, 2);
+    CalendarFormat calendarFormat = CalendarFormat.month;
+    Map<CalendarFormat, String> availableFormats = {
+      CalendarFormat.month: 'Tháng',
+      CalendarFormat.twoWeeks: '2 tuần',
+      CalendarFormat.week: 'Tuần'
+    };
+
+    //common style constants
+    BorderRadiusGeometry borderRadius = BorderRadius.circular(10);
+    double fontSize = 17;
+    TextStyle bold = TextStyle(
+        color: HungryColors().surfaceBrown,
+        fontSize: fontSize,
+        fontWeight: FontWeight.bold);
+
+    TextStyle normal = TextStyle(
+      color: HungryColors().surfaceBrown,
+      fontSize: fontSize,
+    );
+
+    //style for box shadow on focused day or selected day
+    BoxDecoration notSpecialBox = BoxDecoration(
+      borderRadius: borderRadius,
+    );
+
+    BoxDecoration specialBox = BoxDecoration(
+        borderRadius: BorderRadius.circular(10),
+        color: HungryColors().backYellow,
+        boxShadow: [
+          BoxShadow(
+            blurRadius: 5,
+            offset: -Offset(2, 2),
+            color: Colors.white.withOpacity(.3),
+          ),
+          BoxShadow(
+            blurRadius: 5,
+            offset: Offset(2, 2),
+            color: Colors.brown.withOpacity(.3),
+          )
+        ]);
+
     return TableCalendar(
       calendarFormat: calendarFormat,
       locale: "vi_VN",
@@ -49,7 +73,7 @@ class _CalendarState extends State<Calendar> {
         return isSameDay(_selectedDay, day);
       },
       onDaySelected: (selectedDay, focusedDay) {
-        if(!isSameDay(_selectedDay, selectedDay)) {
+        if (!isSameDay(_selectedDay, selectedDay)) {
           setState(() {
             _selectedDay = selectedDay;
             _focusedDay = focusedDay;
@@ -58,68 +82,20 @@ class _CalendarState extends State<Calendar> {
       },
       daysOfWeekStyle: DaysOfWeekStyle(weekdayStyle: bold, weekendStyle: bold),
       headerStyle: HeaderStyle(
-          //headerPadding: const EdgeInsets.only(bottom: 20),
           formatButtonTextStyle: bold,
           titleTextStyle: bold,
-          formatButtonDecoration: BoxDecoration(
-              color: HungryColors().backYellow,
-              borderRadius: BorderRadius.circular(10),
-              boxShadow: [
-                BoxShadow(
-                  blurRadius: 10,
-                  offset: -offset,
-                  color: Colors.white.withOpacity(.2),
-                ),
-                BoxShadow(
-                  blurRadius: 10,
-                  offset: offset,
-                  color: Colors.brown.withOpacity(.2),
-                )
-              ])),
+          formatButtonDecoration: specialBox),
       calendarStyle: CalendarStyle(
           tablePadding: const EdgeInsets.only(top: 10),
           outsideDaysVisible: false,
           weekendTextStyle: normal,
           defaultTextStyle: normal,
-          todayTextStyle: bold,
-          selectedTextStyle: normal,
-          selectedDecoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
-              color: HungryColors().backYellow,
-              boxShadow: [
-                BoxShadow(
-                  blurRadius: 5,
-                  offset: -offset,
-                  color: Colors.brown.withOpacity(.1),
-                ),
-                BoxShadow(
-                  blurRadius: 5,
-                  offset: offset,
-                  color: Colors.brown.withOpacity(.3),
-                ),
-              ]
-          ),
-          defaultDecoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10),
-          ),
-          weekendDecoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10),
-          ),
-          todayDecoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
-              color: HungryColors().backYellow,
-              boxShadow: [
-                BoxShadow(
-                  blurRadius: 5,
-                  offset: -offset,
-                  color: Colors.brown.withOpacity(.1),
-                ),
-                BoxShadow(
-                  blurRadius: 5,
-                  offset: offset,
-                  color: Colors.brown.withOpacity(.3),
-                )
-              ])),
+          todayTextStyle: normal,
+          selectedTextStyle: bold,
+          selectedDecoration: specialBox,
+          defaultDecoration: notSpecialBox,
+          weekendDecoration: notSpecialBox,
+          todayDecoration: specialBox),
     );
   }
 }

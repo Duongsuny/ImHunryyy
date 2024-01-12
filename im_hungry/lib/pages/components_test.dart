@@ -13,29 +13,34 @@ class ComponentsTest extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         bottomNavigationBar: BottomNavBar(),
-        body: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-          Padding(
-            padding: const EdgeInsets.all(15),
-            child: Container(
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
-                    boxShadow: [
-                      BoxShadow(
-                          blurRadius: 10,
-                          offset: const Offset(7, 7),
-                          color: Colors.brown.withOpacity(.3),
-                          inset: true),
-                      BoxShadow(
-                          blurRadius: 10,
-                          offset: const Offset(-7, -7),
-                          color: Colors.brown.withOpacity(.2),
-                          inset: true)
-                    ]),
-                child: const Padding(
-                  padding: EdgeInsets.all(10),
-                  child: Calendar(),
-                )),
-          )
-        ]));
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+           children: [
+            Bean(),
+            Padding(
+              padding: const EdgeInsets.all(15),
+              child: Container(
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20),
+                      boxShadow: [
+                        BoxShadow(
+                            blurRadius: 30,
+                            offset: const Offset(7, 7),
+                            color: Colors.brown.withOpacity(.3),
+                            inset: true),
+                        BoxShadow(
+                            blurRadius: 30,
+                            offset: const Offset(-7, -7),
+                            color: Colors.white.withOpacity(.5),
+                            inset: true)
+                      ]),
+                  child: const Padding(
+                    padding: EdgeInsets.all(10),
+                    child: Calendar(),
+                  )),
+            )
+          ]),
+        ));
   }
 }
