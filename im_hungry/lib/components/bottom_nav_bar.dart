@@ -5,21 +5,23 @@ import 'package:im_hungry/colors.dart';
 import 'package:flutter_inset_box_shadow/flutter_inset_box_shadow.dart';
 
 class BottomNavBar extends StatefulWidget {
-  const BottomNavBar({super.key});
-
+  final Function (int) handleTabChange;
+  const BottomNavBar({super.key, required this.handleTabChange});
+  
   @override
   State<BottomNavBar> createState() => _BottomNavBarState();
 }
 
 class _BottomNavBarState extends State<BottomNavBar> {
   int currentIndex = 0;
+  void onTabChange(int value) {
+    setState(() {
+      currentIndex = value;
+    });
+    widget.handleTabChange(value);
+  }
   @override
   Widget build(BuildContext context) {
-    void handleTabChange(int value) {
-      setState(() {
-        currentIndex = value;
-      });
-    }
     List<BoxShadow> tabShadow = [
       BoxShadow(
           blurRadius: 15,
@@ -54,7 +56,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
             activeColor: HungryColors().surfaceBrown,
             color: HungryColors().surfaceBrown,
             iconSize: 25,
-            onTabChange: (value) => handleTabChange(value),
+            onTabChange: (value) => onTabChange(value),
             gap: 10,
             selectedIndex: currentIndex,
             tabs:  [

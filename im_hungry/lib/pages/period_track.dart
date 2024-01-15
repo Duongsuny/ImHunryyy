@@ -1,25 +1,14 @@
 import 'package:flutter/material.dart' hide BoxDecoration, BoxShadow;
-import 'package:google_nav_bar/google_nav_bar.dart';
-import 'package:im_hungry/colors.dart';
-import 'package:im_hungry/components/bean.dart';
 import 'package:flutter_inset_box_shadow/flutter_inset_box_shadow.dart';
-import 'package:im_hungry/components/bottom_nav_bar.dart';
 import 'package:im_hungry/components/calendar.dart';
-import 'package:im_hungry/components/mood_list_view.dart';
 
-class ComponentsTest extends StatelessWidget {
-  const ComponentsTest({super.key});
+class PeriodTrack extends StatelessWidget {
+  const PeriodTrack({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        //bottomNavigationBar: BottomNavBar(),
-        body: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-           children: [
-            MoodsListView(),
-            Padding(
+    return Center(
+      child: Padding(
               padding: const EdgeInsets.all(15),
               child: Container(
                   decoration: BoxDecoration(
@@ -41,7 +30,6 @@ class ComponentsTest extends StatelessWidget {
                     child: Calendar(),
                   )),
             )
-          ]),
-        ));
+    );
   }
 }

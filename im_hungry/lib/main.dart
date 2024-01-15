@@ -4,6 +4,8 @@ import 'package:hexcolor/hexcolor.dart';
 import 'package:im_hungry/pages/choose_role.dart';
 import 'package:im_hungry/pages/components_test.dart';
 import 'package:im_hungry/pages/loading.dart';
+import 'package:im_hungry/pages/main_page.dart';
+import 'package:im_hungry/pages/mood_status.dart';
 import 'package:intl/date_symbol_data_local.dart';
 
 
@@ -22,7 +24,7 @@ class ImHungry extends StatelessWidget {
         textTheme: GoogleFonts.quicksandTextTheme(),
         scaffoldBackgroundColor: HexColor("#fffaea"),
       ),
-      home: ComponentsTest()
+      home: MainPage(),
     );
   }
 }
