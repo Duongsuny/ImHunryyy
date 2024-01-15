@@ -3,12 +3,19 @@ import 'package:flutter_inset_box_shadow/flutter_inset_box_shadow.dart';
 import 'package:im_hungry/colors.dart';
 import 'package:im_hungry/models/mood.dart';
 
-class MoodTile extends StatelessWidget {
+class MoodTile extends StatefulWidget {
   final Mood mood;
-  const MoodTile({super.key, required this.mood});
+  final bool isPressed;
+  const MoodTile({super.key, required this.mood, required this.isPressed});
 
   @override
+  State<MoodTile> createState() => _MoodTileState();
+}
+
+class _MoodTileState extends State<MoodTile> {
+  @override
   Widget build(BuildContext context) {
+    double opacity = widget.isPressed ? .35 : .1;
     return Container(
       width: 150,
       height: 200,
@@ -20,20 +27,20 @@ class MoodTile extends StatelessWidget {
         BoxShadow(
             blurRadius: 20,
             offset: const Offset(7, 7),
-            color: Colors.brown.withOpacity(.1),
-            inset: false),
+            color: Colors.brown.withOpacity(opacity),
+            inset: widget.isPressed),
         BoxShadow(
             blurRadius: 20,
             offset: const Offset(-7, -7),
-            color: Colors.white.withOpacity(.1),
-            inset: false)
+            color: Colors.white.withOpacity(opacity),
+            inset: widget.isPressed)
       ]),
       child: Center(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Image.asset(mood.imgPath),
-            Text(mood.mood)
+            Image.asset(widget.mood.imgPath),
+            Text(widget.mood.mood)
           ]
         ),
       )
