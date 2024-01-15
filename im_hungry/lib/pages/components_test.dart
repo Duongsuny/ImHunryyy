@@ -5,7 +5,7 @@ import 'package:im_hungry/components/bean.dart';
 import 'package:flutter_inset_box_shadow/flutter_inset_box_shadow.dart';
 import 'package:im_hungry/components/bottom_nav_bar.dart';
 import 'package:im_hungry/components/calendar.dart';
-import 'package:im_hungry/components/mood_list_view.dart';
+import 'package:im_hungry/components/mood/mood_list_view.dart';
 
 class ComponentsTest extends StatelessWidget {
   const ComponentsTest({super.key});

@@ -5,7 +5,7 @@ import 'package:im_hungry/models/mood.dart';
 
 class MoodTile extends StatefulWidget {
   final Mood mood;
-  final bool isPressed;
+  final bool isPressed; //to control if it is press down
   const MoodTile({super.key, required this.mood, required this.isPressed});
 
   @override

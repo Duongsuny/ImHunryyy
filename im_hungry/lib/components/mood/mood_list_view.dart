@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart' hide BoxDecoration, BoxShadow;
 import 'package:flutter_inset_box_shadow/flutter_inset_box_shadow.dart';
-import 'package:im_hungry/components/mood_tile.dart';
+import 'package:im_hungry/components/mood/mood_tile.dart';
 import 'package:im_hungry/models/mood.dart';
 
 class MoodsListView extends StatefulWidget {
@@ -40,11 +40,11 @@ class _MoodsListViewState extends State<MoodsListView> {
                         padding: const EdgeInsets.only(
                             top: 20, bottom: 20, right: 20),
                         child: GestureDetector(
+                          //if tapped, all other tiles press status would be false
                             onTap: () {
                               setState(() {
                                 isPressedIndex = index;
                               });
-                              print(isPressedIndex);
                             },
                             child: MoodTile(
                                 isPressed: isPressedIndex == index,
