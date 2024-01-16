@@ -14,22 +14,66 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
-  List<Widget> pages = const [MoodStatus(), MissingU(), WhereAreU(), PeriodTrack()];
+  List<Widget> pages = const [
+    MoodStatus(),
+    MissingU(),
+    WhereAreU(),
+    PeriodTrack()
+  ];
+  List<String> appTitles = ["Trạng thái", "Nhớ", "Vị trí", "Đón bé dâu"];
   int currentIndex = 0;
-  
+
   void handleTabChange(value) {
     setState(() {
       currentIndex = value;
     });
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: HungryColors().backYellow,
-      ),
-      body: pages[currentIndex],
-      bottomNavigationBar: BottomNavBar(handleTabChange: handleTabChange)
-    );
+        appBar: AppBar(
+            toolbarHeight: 80,
+            elevation: 8,
+            backgroundColor: const Color.fromARGB(255, 154, 77, 44),
+            shape: const RoundedRectangleBorder(
+                borderRadius: BorderRadius.vertical(
+              bottom: Radius.circular(15),
+            )),
+            title: Text(
+              appTitles[currentIndex],
+              style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: HungryColors().backYellow),
+            ),
+            centerTitle: true,
+            actions: [
+              Padding(
+                padding: const EdgeInsets.only(right: 20),
+                child: Container(
+                  height: 40,
+                  width: 40,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: const Color.fromARGB(255, 152, 75, 60),
+                    boxShadow: [
+                        BoxShadow(
+                            blurRadius: 10,
+                            offset: const Offset(-3, -3),
+                            color: Colors.white.withOpacity(.05)),
+                        BoxShadow(
+                            blurRadius:10,
+                            offset: const Offset(3, 3),
+                            color: Colors.black.withOpacity(.2))
+                    ]
+                  ),
+                    child: Icon(
+                  Icons.settings,
+                  color: HungryColors().backYellow,
+                )),
+              )
+            ]),
+        body: pages[currentIndex],
+        bottomNavigationBar: BottomNavBar(handleTabChange: handleTabChange));
   }
 }

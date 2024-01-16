@@ -6,7 +6,7 @@ class WhereAreU extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: Text("Where are you?")
+      child: Text("To be added")
     );
   }
 }

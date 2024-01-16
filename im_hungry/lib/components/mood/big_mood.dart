@@ -7,13 +7,14 @@ class BigMood extends StatelessWidget {
   final Mood mood;
   final time;
   final String? avaPath;
-  const BigMood({super.key, required this.mood, required this.time, this.avaPath});
+  const BigMood(
+      {super.key, required this.mood, required this.time, this.avaPath});
 
   @override
   Widget build(BuildContext context) {
     Offset distance = const Offset(5, 5);
     return Padding(
-      padding: const EdgeInsets.all(20),
+      padding: const EdgeInsets.only(top: 20),
       child: Container(
           height: 80,
           decoration: BoxDecoration(
@@ -34,10 +35,22 @@ class BigMood extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.all(15),
                 child: Container(
-                  decoration: const BoxDecoration(shape: BoxShape.circle
+                  height: 100,
+                  decoration: BoxDecoration(
+                    color: HungryColors().backYellow,
+                      shape: BoxShape.circle,
                       //todo add shadows
-                      ),
-                  child: Image.asset(avaPath??"lib/assets/anh.png"),
+                      boxShadow: [
+                        BoxShadow(
+                            blurRadius: 15,
+                            offset: const Offset(-0, -5),
+                            color: Colors.white.withOpacity(.3)),
+                        BoxShadow(
+                            blurRadius: 15,
+                            offset: const Offset(0, 5),
+                            color: Colors.brown.withOpacity(.1))
+                      ]),
+                  child: Image.asset(avaPath ?? "lib/assets/anh.png"),
                 ),
               ),
               Padding(
