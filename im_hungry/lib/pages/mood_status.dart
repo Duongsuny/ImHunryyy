@@ -1,4 +1,5 @@
 import "package:flutter/material.dart";
+import "package:im_hungry/collections/moods_collection.dart";
 import "package:im_hungry/colors.dart";
 import "package:im_hungry/components/mood/big_mood.dart";
 import 'package:im_hungry/components/mood/mood_list_view.dart';
@@ -12,8 +13,17 @@ class MoodStatus extends StatefulWidget {
 }
 
 class _MoodStatusState extends State<MoodStatus> {
+  int? currentIndex;
+  DateTime? moodUpdateTime;
+  void updateMood(int index) {
+    setState(() {
+      currentIndex = index;
+      moodUpdateTime = DateTime.now();
+    });
+  }
   @override
   Widget build(BuildContext context) {
+    Mood currentMood = MoodCollection().moods[currentIndex ?? 0];
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -29,8 +39,8 @@ class _MoodStatusState extends State<MoodStatus> {
                   fontWeight: FontWeight.bold,
                   color: HungryColors().surfaceBrown
                 ),),
-                BigMood(mood: Mood(mood: "Đói", imgPath: "lib/assets/loading_cat.png"), time: DateTime.now()),
-                BigMood(mood: Mood(mood: "Đói", imgPath: "lib/assets/loading_cat.png"), time: DateTime.now(), avaPath: "lib/assets/em.png"),
+                BigMood(mood: Mood(mood: "Đói", imgPath: "lib/assets/loading_cat.png"), time: moodUpdateTime ?? DateTime.now()),
+                BigMood(mood: currentMood, time: DateTime.now(), avaPath: "lib/assets/em.png"),
               ],
             ),
           ),
@@ -47,7 +57,7 @@ class _MoodStatusState extends State<MoodStatus> {
                   ),),
               ),
               const SizedBox(height: 10),
-              const MoodsListView(),
+              MoodsListView(updateMood: (index) => updateMood(index)),
             ],
           )
         ],

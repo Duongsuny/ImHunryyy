@@ -5,7 +5,7 @@ import 'package:im_hungry/models/nickname.dart';
 
 class BigMood extends StatelessWidget {
   final Mood mood;
-  final time;
+  final DateTime? time;
   final String? avaPath;
   const BigMood(
       {super.key, required this.mood, required this.time, this.avaPath});
@@ -68,7 +68,7 @@ class BigMood extends StatelessWidget {
                     ),
                     const SizedBox(height: 5),
                     Text(
-                      "Từ ${time.toString().substring(11, 16)}",
+                      "Từ ${time.toString().substring(11,16)}",
                       style: TextStyle(
                           color: HungryColors().surfaceBrown,
                           fontSize: 15,

@@ -1,23 +1,20 @@
 import 'package:flutter/material.dart' hide BoxDecoration, BoxShadow;
 import 'package:flutter_inset_box_shadow/flutter_inset_box_shadow.dart';
+import 'package:im_hungry/collections/moods_collection.dart';
 import 'package:im_hungry/components/mood/mood_tile.dart';
 import 'package:im_hungry/models/mood.dart';
 import 'package:vibration/vibration.dart';
 
 class MoodsListView extends StatefulWidget {
-  const MoodsListView({super.key});
+  final Function (int moodIndex) updateMood;
+  const MoodsListView({super.key, required this.updateMood});
 
   @override
   State<MoodsListView> createState() => _MoodsListViewState();
 }
 
 class _MoodsListViewState extends State<MoodsListView> {
-  List<Mood> moods = [
-    Mood(mood: "Em đóiii", imgPath: "lib/assets/loading_cat.png"),
-    Mood(mood: "Em dỗiii", imgPath: "lib/assets/loading_cat.png"),
-    Mood(mood: "Em dỗiii", imgPath: "lib/assets/loading_cat.png"),
-    Mood(mood: "Em dỗiii", imgPath: "lib/assets/loading_cat.png"),
-  ];
+  List<Mood> moods = MoodCollection().moods;
 
   int? isPressedIndex;
   @override
@@ -44,6 +41,7 @@ class _MoodsListViewState extends State<MoodsListView> {
                             setState(() {
                               isPressedIndex = index;
                             });
+                            widget.updateMood(index);
                             Vibration.vibrate(duration: 50);
                           },
                           child: MoodTile(
