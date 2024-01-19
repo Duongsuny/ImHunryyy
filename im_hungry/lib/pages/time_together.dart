@@ -7,7 +7,7 @@ class DayTogether extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    //style constant
+    //style constants
     TextStyle boldStyle = TextStyle(
         color: HungryColors().surfaceBrown,
         fontSize: 22,
@@ -19,8 +19,10 @@ class DayTogether extends StatelessWidget {
 
     return Scaffold(
         appBar: AppBar(
-          backgroundColor: HungryColors().backYellow,
-        ),
+            backgroundColor: HungryColors().backYellow,
+            iconTheme: IconThemeData(
+              color: HungryColors().surfaceBrown, //change your color here
+            )),
         backgroundColor: HungryColors().backYellow,
         body: Center(
           child: Padding(
@@ -48,7 +50,7 @@ class DayTogether extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 30),
                     child: Container(
-                      height: 150,
+                      height: 100,
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(20),
                           color: HungryColors().backYellow,
@@ -89,7 +91,7 @@ class DayTogether extends StatelessWidget {
                         color: HungryColors().surfaceBrown,
                         fontStyle: FontStyle.italic,
                         fontWeight: FontWeight.bold,
-                        fontSize: 18),
+                        fontSize: 17),
                   )
                 ]),
           ),

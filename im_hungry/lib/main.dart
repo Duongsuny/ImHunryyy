@@ -7,9 +7,9 @@ import 'package:im_hungry/pages/components_test.dart';
 import 'package:im_hungry/pages/loading.dart';
 import 'package:im_hungry/pages/main_page.dart';
 import 'package:im_hungry/pages/mood_status.dart';
+import 'package:im_hungry/pages/settings.dart';
 import 'package:im_hungry/pages/time_together.dart';
 import 'package:intl/date_symbol_data_local.dart';
-
 
 void main() {
   initializeDateFormatting().then((_) => runApp(const ImHungry()));
@@ -26,7 +26,13 @@ class ImHungry extends StatelessWidget {
         textTheme: GoogleFonts.quicksandTextTheme(),
         scaffoldBackgroundColor: HexColor("#fffaea"),
       ),
-      home: DayTogether(),
+      //home: MainPage(),
+      initialRoute: '/',
+      routes: {
+        '/': (context) => MainPage(),
+        '/time': (context) => DayTogether(),
+        '/settings': (context) => Settings(),
+      },
     );
   }
 }
