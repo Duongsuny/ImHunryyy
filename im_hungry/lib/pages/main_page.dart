@@ -79,26 +79,31 @@ class _MainPageState extends State<MainPage> {
             actions: [
               Padding(
                 padding: const EdgeInsets.only(right: 20),
-                child: Container(
-                    height: 40,
-                    width: 40,
-                    decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: const Color.fromARGB(255, 152, 75, 60),
-                        boxShadow: [
-                          BoxShadow(
-                              blurRadius: 10,
-                              offset: const Offset(-3, -3),
-                              color: Colors.white.withOpacity(.05)),
-                          BoxShadow(
-                              blurRadius: 10,
-                              offset: const Offset(3, 3),
-                              color: Colors.black.withOpacity(.2))
-                        ]),
-                    child: Icon(
-                      Icons.settings,
-                      color: HungryColors().backYellow,
-                    )),
+                child: GestureDetector(
+                  onTap: () {
+                    Navigator.pushNamed(context, "/settings");
+                  },
+                  child: Container(
+                      height: 40,
+                      width: 40,
+                      decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: const Color.fromARGB(255, 152, 75, 60),
+                          boxShadow: [
+                            BoxShadow(
+                                blurRadius: 10,
+                                offset: const Offset(-3, -3),
+                                color: Colors.white.withOpacity(.05)),
+                            BoxShadow(
+                                blurRadius: 10,
+                                offset: const Offset(3, 3),
+                                color: Colors.black.withOpacity(.2))
+                          ]),
+                      child: Icon(
+                        Icons.settings,
+                        color: HungryColors().backYellow,
+                      )),
+                ),
               )
             ]),
         body: pages[currentIndex],

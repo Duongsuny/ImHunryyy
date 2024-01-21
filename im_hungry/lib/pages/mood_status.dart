@@ -4,8 +4,6 @@ import "package:im_hungry/colors.dart";
 import "package:im_hungry/components/mood/big_mood.dart";
 import 'package:im_hungry/components/mood/mood_list_view.dart';
 import "package:im_hungry/models/mood.dart";
-import "package:top_snackbar_flutter/custom_snack_bar.dart";
-import "package:top_snackbar_flutter/top_snack_bar.dart";
 
 class MoodStatus extends StatefulWidget {
   const MoodStatus({super.key});
