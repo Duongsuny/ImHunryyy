@@ -3,6 +3,7 @@ import "package:im_hungry/collections/moods_collection.dart";
 import "package:im_hungry/colors.dart";
 import "package:im_hungry/components/mood/big_mood.dart";
 import 'package:im_hungry/components/mood/mood_list_view.dart';
+import "package:im_hungry/components/snack_bar.dart";
 import "package:im_hungry/models/mood.dart";
 
 class MoodStatus extends StatefulWidget {
@@ -22,11 +23,11 @@ class _MoodStatusState extends State<MoodStatus> {
     });
     ScaffoldMessenger.of(context).showSnackBar(
        SnackBar(
-        margin: EdgeInsets.symmetric(horizontal: 50, vertical: 20),
-        padding: EdgeInsets.symmetric(vertical: 20),
+        margin: const EdgeInsets.symmetric(horizontal: 50, vertical: 20),
+        padding: const EdgeInsets.symmetric(vertical: 20),
         duration: Durations.long4,
         content: Text(
-          'Đã gửi!',
+          "Da update",
           textAlign: TextAlign.center,
           style: TextStyle(
             color: HungryColors().backYellow,
@@ -35,9 +36,9 @@ class _MoodStatusState extends State<MoodStatus> {
           ),
         ),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-        backgroundColor: Color.fromARGB(255, 152, 75, 60),
+        backgroundColor: const Color.fromARGB(255, 152, 75, 60),
         behavior: SnackBarBehavior.floating,
-      ),
+      )
     );
   }
 

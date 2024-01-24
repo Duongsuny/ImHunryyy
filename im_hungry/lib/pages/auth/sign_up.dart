@@ -3,6 +3,7 @@ import "package:im_hungry/colors.dart";
 import "package:im_hungry/components/shadow.dart";
 import 'package:flutter/material.dart' hide BoxDecoration, BoxShadow;
 import 'package:flutter_inset_box_shadow/flutter_inset_box_shadow.dart';
+
 import 'package:intl_phone_field/countries.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 
@@ -32,7 +33,6 @@ class _SignUpState extends State<SignUp> {
       fontSize: 18,
       fontWeight: FontWeight.bold);
 
-
   void signIn() async {
     await auth.verifyPhoneNumber(
         phoneNumber: phoneNumberConverted(),
@@ -41,7 +41,23 @@ class _SignUpState extends State<SignUp> {
         },
         verificationFailed: (e) {
           if (e.code == 'invalid-phone-number') {
-            print('The provided phone number is not valid.');
+            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+              margin: const EdgeInsets.symmetric(horizontal: 50, vertical: 20),
+              padding: const EdgeInsets.symmetric(vertical: 20),
+              duration: Durations.long4,
+              content: Text(
+                "SDT khong hop le",
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                    color: HungryColors().backYellow,
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold),
+              ),
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(15)),
+              backgroundColor: const Color.fromARGB(255, 152, 75, 60),
+              behavior: SnackBarBehavior.floating,
+            ));
           }
         },
         codeSent: (String verificationId, int? resendToken) async {

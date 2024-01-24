@@ -1,5 +1,7 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:im_hungry/colors.dart';
+import 'package:im_hungry/components/shadow.dart';
 
 class Settings extends StatefulWidget {
   const Settings({super.key});
@@ -14,6 +16,12 @@ class _SettingsState extends State<Settings> {
     setState(() {
       haptic = value;
     });
+  }
+
+  void _signOut() async {
+    await FirebaseAuth.instance.signOut();
+    if (!context.mounted) return;
+    Navigator.of(context).pop();
   }
 
   @override
@@ -42,13 +50,37 @@ class _SettingsState extends State<Settings> {
                     style: TextStyle(
                         fontSize: 20, color: HungryColors().surfaceBrown)),
                 Switch(
-                    value: haptic, onChanged: (value) => onHapticSwitch(value),
-                    activeColor: HungryColors().surfaceBrown,
-                    inactiveTrackColor: HungryColors().backYellow,
-                    
-                    )
+                  value: haptic,
+                  onChanged: (value) => onHapticSwitch(value),
+                  activeColor: HungryColors().surfaceBrown,
+                  inactiveTrackColor: HungryColors().backYellow,
+                )
               ],
-            )
+            ),
+            const SizedBox(height: 50),
+            GestureDetector(
+              onTap: _signOut,
+              child: Container(
+                height: 80,
+                alignment: Alignment.center,
+                decoration: BoxDecoration(
+                    color: HungryColors().backYellow,
+                    borderRadius: BorderRadius.circular(20),
+                    boxShadow: NeoShadow(
+                            blurRadius: 20,
+                            offset: 10,
+                            opacity: 0.2,
+                            inset: true)
+                        .shadow),
+                child: Text(
+                  "Dang xuat",
+                  style: TextStyle(
+                      color: HungryColors().surfaceBrown,
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold),
+                ),
+              ),
+            ),
           ]),
         ));
   }

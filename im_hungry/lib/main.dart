@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:im_hungry/firebase_options.dart';
 import 'package:im_hungry/models/time_together/time_together_model.dart';
+import 'package:im_hungry/pages/auth/auth_page.dart';
 import 'package:im_hungry/pages/auth/sign_up.dart';
 import 'package:im_hungry/pages/choose_role.dart';
 import 'package:im_hungry/pages/components_test.dart';
@@ -32,12 +33,13 @@ class ImHungry extends StatelessWidget {
         scaffoldBackgroundColor: HexColor("#fffaea"),
       ),
       //home: MainPage(),
-      initialRoute: '/signup',
+      initialRoute: '/auth',
       routes: {
         '/': (context) => MainPage(),
         '/time': (context) => DayTogether(),
         '/settings': (context) => Settings(),
-        '/signup' : (context) => SignUp()
+        '/signup' : (context) => SignUp(),
+        '/auth': (context) => AuthPage()
       },
     );
   }
