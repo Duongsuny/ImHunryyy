@@ -1,8 +1,10 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import "package:im_hungry/colors.dart";
 import "package:im_hungry/components/shadow.dart";
 import 'package:flutter/material.dart' hide BoxDecoration, BoxShadow;
 import 'package:flutter_inset_box_shadow/flutter_inset_box_shadow.dart';
+import 'package:im_hungry/services/database_services.dart';
 
 import 'package:intl_phone_field/countries.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
@@ -28,11 +30,11 @@ class _SignUpState extends State<SignUp> {
   }
 
   FirebaseAuth auth = FirebaseAuth.instance;
+  FirebaseFirestore db = FirebaseFirestore.instance;
   TextStyle phoneNumberStyle = TextStyle(
       color: HungryColors().surfaceBrown,
       fontSize: 18,
       fontWeight: FontWeight.bold);
-
   void signIn() async {
     await auth.verifyPhoneNumber(
         phoneNumber: phoneNumberConverted(),
@@ -65,6 +67,10 @@ class _SignUpState extends State<SignUp> {
           PhoneAuthCredential credential = PhoneAuthProvider.credential(
               verificationId: verificationId, smsCode: smsCode);
           await auth.signInWithCredential(credential);
+          db
+              .collection("users")
+              .doc(auth.currentUser!.uid)
+              .set({"phoneNumber": phoneNumberConverted()});
         },
         codeAutoRetrievalTimeout: (verificationId) {});
   }
