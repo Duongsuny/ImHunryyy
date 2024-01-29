@@ -4,7 +4,6 @@ import "package:im_hungry/colors.dart";
 import "package:im_hungry/components/shadow.dart";
 import 'package:flutter/material.dart' hide BoxDecoration, BoxShadow;
 import 'package:flutter_inset_box_shadow/flutter_inset_box_shadow.dart';
-import 'package:im_hungry/services/database_services.dart';
 
 import 'package:intl_phone_field/countries.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
@@ -35,9 +34,19 @@ class _SignUpState extends State<SignUp> {
       color: HungryColors().surfaceBrown,
       fontSize: 18,
       fontWeight: FontWeight.bold);
+
+//handle sign in with phone number
   void signIn() async {
+    showDialog(context: context,
+     builder: (context) {
+      return Center(child: CircularProgressIndicator(
+        backgroundColor: HungryColors().anotherBrown,
+        color: HungryColors().backYellow,
+      ));
+     });
+
     await auth.verifyPhoneNumber(
-        phoneNumber: phoneNumberConverted(),
+        phoneNumber: phoneNumberConverted(), //convert phone number with contry code and eliminate starting zero
         verificationCompleted: (credential) async {
           await auth.signInWithCredential(credential);
         },
@@ -71,6 +80,7 @@ class _SignUpState extends State<SignUp> {
               .collection("users")
               .doc(auth.currentUser!.uid)
               .set({"phoneNumber": phoneNumberConverted()});
+              if (context.mounted) Navigator.of(context).pop(); //pop loading circle
         },
         codeAutoRetrievalTimeout: (verificationId) {});
   }
