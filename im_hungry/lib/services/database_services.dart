@@ -1,30 +1,34 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:im_hungry/models/mood.dart';
 
 class DatabaseServices {
-  final CollectionReference usersDB =
-      FirebaseFirestore.instance.collection("users");
-  //Write user to database
+  final db = FirebaseFirestore.instance;
+  final auth = FirebaseAuth.instance;
 
-  Future<void> addUser(String phoneNumber) {
-    return usersDB.add({"phoneNumber": phoneNumber});
+  Future<void> setMood(int index) async {
+    late final statusDocRef = db
+        .collection("users")
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .collection("status")
+        .doc("currentStatus");
+
+    await statusDocRef.set({"current": index});
   }
 
-Future<bool> checkPartner() async {
-  final uid = FirebaseAuth.instance.currentUser?.uid ?? "";
-  final partnerRecordRef = FirebaseFirestore.instance
-      .collection("users")
-      .doc(uid)
-      .collection("connected")
-      .doc("partner");
-
-  try {
-    final docSnapshot = await partnerRecordRef.get();
-    return docSnapshot.exists;
-  } catch (error) {
-    print("Error checking partner: ${error.toString()}");
-    return false;
-  }
+Future<Mood> getMood() async {
+      late final statusDocRef = db
+        .collection("users")
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .collection("status")
+        .doc("currentStatus");
 }
+  Future<bool> checkPartner() async {
+    final data = await db.collection("users").doc(auth.currentUser!.uid).collection("partner").doc("partnerInfo").get();
+    final fetched = data.data();
+
+    if(fetched != null) return true; else return false;
+  }
+
 }

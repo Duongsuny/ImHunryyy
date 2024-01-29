@@ -1,3 +1,5 @@
+import "package:cloud_firestore/cloud_firestore.dart";
+import "package:firebase_auth/firebase_auth.dart";
 import "package:flutter/material.dart";
 import "package:im_hungry/collections/moods_collection.dart";
 import "package:im_hungry/colors.dart";
@@ -14,37 +16,55 @@ class MoodStatus extends StatefulWidget {
 }
 
 class _MoodStatusState extends State<MoodStatus> {
+  final db = FirebaseFirestore.instance;
+  late final statusDocRef = db
+      .collection("users")
+      .doc(FirebaseAuth.instance.currentUser!.uid)
+      .collection("status")
+      .doc("currentStatus");
   int? currentIndex;
   DateTime? moodUpdateTime;
+
   void updateMood(int index) {
     setState(() {
       currentIndex = index;
       moodUpdateTime = DateTime.now();
     });
-    ScaffoldMessenger.of(context).showSnackBar(
-       SnackBar(
-        margin: const EdgeInsets.symmetric(horizontal: 50, vertical: 20),
-        padding: const EdgeInsets.symmetric(vertical: 20),
-        duration: Durations.long4,
-        content: Text(
-          "Da update",
-          textAlign: TextAlign.center,
-          style: TextStyle(
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      margin: const EdgeInsets.symmetric(horizontal: 50, vertical: 20),
+      padding: const EdgeInsets.symmetric(vertical: 20),
+      duration: Durations.long4,
+      content: Text(
+        "Da update",
+        textAlign: TextAlign.center,
+        style: TextStyle(
             color: HungryColors().backYellow,
             fontSize: 16,
-            fontWeight: FontWeight.bold
-          ),
-        ),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-        backgroundColor: const Color.fromARGB(255, 152, 75, 60),
-        behavior: SnackBarBehavior.floating,
-      )
-    );
+            fontWeight: FontWeight.bold),
+      ),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+      backgroundColor: const Color.fromARGB(255, 152, 75, 60),
+      behavior: SnackBarBehavior.floating,
+    ));
+  }
+
+  Mood partnerMood = MoodCollection().moods[1];
+  Future<void> getMood() async {
+    final data = await statusDocRef.get();
+    final fetchedMoodData = data.data();
+    if (fetchedMoodData != null) {
+      setState(() {
+        partnerMood = MoodCollection().moods[fetchedMoodData["current"]];
+      });
+    } else {
+      print("No such document.");
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     Mood currentMood = MoodCollection().moods[currentIndex ?? 0];
+    getMood();
     return Center(
         child: Column(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -62,8 +82,7 @@ class _MoodStatusState extends State<MoodStatus> {
                     color: HungryColors().surfaceBrown),
               ),
               BigMood(
-                  mood:
-                      Mood(mood: "Đói", imgPath: "lib/assets/loading_cat.png"),
+                  mood: partnerMood,
                   time: moodUpdateTime ?? DateTime.now()),
               BigMood(
                   mood: currentMood,
