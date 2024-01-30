@@ -7,6 +7,7 @@ import "package:im_hungry/components/mood/big_mood.dart";
 import 'package:im_hungry/components/mood/mood_list_view.dart';
 import "package:im_hungry/components/snack_bar.dart";
 import "package:im_hungry/models/mood.dart";
+import "package:im_hungry/services/database_services.dart";
 
 class MoodStatus extends StatefulWidget {
   const MoodStatus({super.key});
@@ -17,11 +18,11 @@ class MoodStatus extends StatefulWidget {
 
 class _MoodStatusState extends State<MoodStatus> {
   final db = FirebaseFirestore.instance;
-  late final statusDocRef = db
-      .collection("users")
-      .doc(FirebaseAuth.instance.currentUser!.uid)
-      .collection("status")
-      .doc("currentStatus");
+  // late final statusDocRef = db
+  //     .collection("users")
+  //     .doc(FirebaseAuth.instance.currentUser!.uid)
+  //     .collection("status")
+  //     .doc("currentStatus");
   int? currentIndex;
   DateTime? moodUpdateTime;
 
@@ -49,22 +50,21 @@ class _MoodStatusState extends State<MoodStatus> {
   }
 
   Mood partnerMood = MoodCollection().moods[1];
-  Future<void> getMood() async {
-    final data = await statusDocRef.get();
-    final fetchedMoodData = data.data();
-    if (fetchedMoodData != null) {
-      setState(() {
-        partnerMood = MoodCollection().moods[fetchedMoodData["current"]];
-      });
-    } else {
-      print("No such document.");
-    }
-  }
+  // Future<void> getMood() async {
+  //   final data = await statusDocRef.get();
+  //   final fetchedMoodData = data.data();
+  //   if (fetchedMoodData != null) {
+  //     setState(() {
+  //       partnerMood = MoodCollection().moods[fetchedMoodData["current"]];
+  //     });
+  //   } else {
+  //     print("No such document.");
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
     Mood currentMood = MoodCollection().moods[currentIndex ?? 0];
-    getMood();
     return Center(
         child: Column(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -82,7 +82,7 @@ class _MoodStatusState extends State<MoodStatus> {
                     color: HungryColors().surfaceBrown),
               ),
               BigMood(
-                  mood: partnerMood,
+                  mood: Mood(mood: "nah", imgPath: "lib/assets/anh.png"),
                   time: moodUpdateTime ?? DateTime.now()),
               BigMood(
                   mood: currentMood,
