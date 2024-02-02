@@ -7,7 +7,9 @@ import "package:im_hungry/components/mood/big_mood.dart";
 import 'package:im_hungry/components/mood/mood_list_view.dart';
 import "package:im_hungry/components/snack_bar.dart";
 import "package:im_hungry/models/mood.dart";
+import "package:im_hungry/services/auth_services.dart";
 import "package:im_hungry/services/database_services.dart";
+import "package:im_hungry/services/mood_services.dart";
 
 class MoodStatus extends StatefulWidget {
   const MoodStatus({super.key});
@@ -17,12 +19,6 @@ class MoodStatus extends StatefulWidget {
 }
 
 class _MoodStatusState extends State<MoodStatus> {
-  final db = FirebaseFirestore.instance;
-  // late final statusDocRef = db
-  //     .collection("users")
-  //     .doc(FirebaseAuth.instance.currentUser!.uid)
-  //     .collection("status")
-  //     .doc("currentStatus");
   int? currentIndex;
   DateTime? moodUpdateTime;
 
@@ -31,6 +27,7 @@ class _MoodStatusState extends State<MoodStatus> {
       currentIndex = index;
       moodUpdateTime = DateTime.now();
     });
+    MoodServices.updateMood(index, DateTime.now());
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
       margin: const EdgeInsets.symmetric(horizontal: 50, vertical: 20),
       padding: const EdgeInsets.symmetric(vertical: 20),
@@ -49,66 +46,67 @@ class _MoodStatusState extends State<MoodStatus> {
     ));
   }
 
-  Mood partnerMood = MoodCollection().moods[1];
-  // Future<void> getMood() async {
-  //   final data = await statusDocRef.get();
-  //   final fetchedMoodData = data.data();
-  //   if (fetchedMoodData != null) {
-  //     setState(() {
-  //       partnerMood = MoodCollection().moods[fetchedMoodData["current"]];
-  //     });
-  //   } else {
-  //     print("No such document.");
-  //   }
-  // }
-
   @override
   Widget build(BuildContext context) {
     Mood currentMood = MoodCollection().moods[currentIndex ?? 0];
-    return Center(
-        child: Column(
-      mainAxisAlignment: MainAxisAlignment.spaceAround,
-      children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20),
+    //check if user is logged in
+    if (FirebaseAuth.instance.currentUser != null) {
+      return Center(
           child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  "Trạng thái",
+                  style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      color: HungryColors().surfaceBrown),
+                ),
+                FutureBuilder<Map?>(
+                    future: MoodServices.getMood(),
+                    builder: ((context, snapshot) {
+                      if (!snapshot.hasData) {
+                        return Container();
+                      } else {
+                        return BigMood(
+                            mood: MoodCollection().moods[snapshot.data!["current"] as int],
+                            time: snapshot.data!["time"].toDate(),
+                            avaPath: "lib/assets/anh.png");
+                      }
+                    })),
+                BigMood(
+                    mood: currentMood,
+                    time: moodUpdateTime ?? DateTime.now(),
+                    avaPath: "lib/assets/em.png"),
+              ],
+            ),
+          ),
+          Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                "Trạng thái",
-                style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                    color: HungryColors().surfaceBrown),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: Text(
+                  "Chọn trạng thái của bạn",
+                  style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      color: HungryColors().surfaceBrown),
+                ),
               ),
-              BigMood(
-                  mood: Mood(mood: "nah", imgPath: "lib/assets/anh.png"),
-                  time: moodUpdateTime ?? DateTime.now()),
-              BigMood(
-                  mood: currentMood,
-                  time: DateTime.now(),
-                  avaPath: "lib/assets/em.png"),
+              const SizedBox(height: 10),
+              MoodsListView(updateMood: (index) => updateMood(index)),
             ],
-          ),
-        ),
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: Text(
-                "Chọn trạng thái của bạn",
-                style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                    color: HungryColors().surfaceBrown),
-              ),
-            ),
-            const SizedBox(height: 10),
-            MoodsListView(updateMood: (index) => updateMood(index)),
-          ],
-        )
-      ],
-    ));
+          )
+        ],
+      ));
+    } else {
+      return Container(); // other way of returning null
+    }
   }
 }

@@ -80,7 +80,7 @@ class _SignUpState extends State<SignUp> {
               .collection("users")
               .doc(auth.currentUser!.uid)
               .set({"phoneNumber": phoneNumberConverted()});
-              if (context.mounted) Navigator.of(context).pop(); //pop loading circle
+              if (mounted) Navigator.of(context).pop(); //pop loading circle
         },
         codeAutoRetrievalTimeout: (verificationId) {});
   }
