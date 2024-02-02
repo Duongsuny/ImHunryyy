@@ -1,14 +1,10 @@
-import "package:cloud_firestore/cloud_firestore.dart";
 import "package:firebase_auth/firebase_auth.dart";
 import "package:flutter/material.dart";
 import "package:im_hungry/collections/moods_collection.dart";
 import "package:im_hungry/colors.dart";
 import "package:im_hungry/components/mood/big_mood.dart";
 import 'package:im_hungry/components/mood/mood_list_view.dart';
-import "package:im_hungry/components/snack_bar.dart";
 import "package:im_hungry/models/mood.dart";
-import "package:im_hungry/services/auth_services.dart";
-import "package:im_hungry/services/database_services.dart";
 import "package:im_hungry/services/mood_services.dart";
 
 class MoodStatus extends StatefulWidget {

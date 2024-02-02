@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:im_hungry/colors.dart';
 
 class Loading extends StatelessWidget {
   const Loading({super.key});
@@ -16,7 +17,7 @@ class Loading extends StatelessWidget {
           Text("Đợi xíu",
           style: TextStyle(
             fontSize: 20,
-            color: Theme.of(context).primaryColor,
+            color: HungryColors().surfaceBrown,
             fontWeight: FontWeight.w900
           ))
         ],

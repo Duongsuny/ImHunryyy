@@ -39,7 +39,8 @@ class ImHungry extends StatelessWidget {
         '/time': (context) => DayTogether(),
         '/settings': (context) => Settings(),
         '/signup' : (context) => SignUp(),
-        '/auth': (context) => AuthPage()
+        '/auth': (context) => AuthPage(),
+        '/loading': (context) => Loading()
       },
     );
   }

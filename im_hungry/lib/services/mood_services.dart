@@ -1,16 +1,17 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:im_hungry/collections/moods_collection.dart';
+import 'package:im_hungry/models/global.dart' as globals;
 import 'package:im_hungry/models/mood.dart';
 import 'package:intl/number_symbols_data.dart';
 
 class MoodServices {
   static Future<Map?> getMood() async {
     final db = FirebaseFirestore.instance;
-    const String partnerID = "X4vcvH5g17eFlKeMILha1zOnLCZ2";
+    globals.setPartnerID("X4vcvH5g17eFlKeMILha1zOnLCZ2");
     final statusDocRef = db
         .collection("users")
-        .doc(partnerID)
+        .doc(globals.partnerID)
         .collection("status")
         .doc("currentStatus");
     final data = await statusDocRef.get();

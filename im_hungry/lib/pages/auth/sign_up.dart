@@ -37,14 +37,7 @@ class _SignUpState extends State<SignUp> {
 
 //handle sign in with phone number
   void signIn() async {
-    showDialog(context: context,
-     builder: (context) {
-      return Center(child: CircularProgressIndicator(
-        backgroundColor: HungryColors().anotherBrown,
-        color: HungryColors().backYellow,
-      ));
-     });
-
+    Navigator.pushNamed(context, '/loading');
     await auth.verifyPhoneNumber(
         phoneNumber: phoneNumberConverted(), //convert phone number with contry code and eliminate starting zero
         verificationCompleted: (credential) async {
