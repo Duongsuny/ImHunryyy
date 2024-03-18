@@ -73,7 +73,7 @@ class _SettingsState extends State<Settings> {
                             inset: true)
                         .shadow),
                 child: Text(
-                  "Dang xuat",
+                  "Đăng xuất",
                   style: TextStyle(
                       color: HungryColors().surfaceBrown,
                       fontSize: 18,

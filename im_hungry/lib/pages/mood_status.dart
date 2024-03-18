@@ -29,7 +29,7 @@ class _MoodStatusState extends State<MoodStatus> {
       padding: const EdgeInsets.symmetric(vertical: 20),
       duration: Durations.long4,
       content: Text(
-        "Da update",
+        "Đã update",
         textAlign: TextAlign.center,
         style: TextStyle(
             color: HungryColors().backYellow,
@@ -71,7 +71,7 @@ class _MoodStatusState extends State<MoodStatus> {
                       } else {
                         return BigMood(
                             mood: MoodCollection().moods[snapshot.data!["current"] as int],
-                            time: snapshot.data!["time"].toDate(),
+                            time:  DateTime.now(),
                             avaPath: "lib/assets/anh.png");
                       }
                     })),
@@ -88,7 +88,7 @@ class _MoodStatusState extends State<MoodStatus> {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: Text(
-                  "Chọn trạng thái của bạn",
+                  "Em đang cảm thấy thế nào?",
                   style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.bold,

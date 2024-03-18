@@ -38,8 +38,9 @@ class _SignUpState extends State<SignUp> {
 //handle sign in with phone number
   void signIn() async {
     Navigator.pushNamed(context, '/loading');
-    await auth.verifyPhoneNumber(
-        phoneNumber: phoneNumberConverted(), //convert phone number with contry code and eliminate starting zero
+    try {
+      await auth.verifyPhoneNumber(
+        phoneNumber: phoneNumberConverted(), //convert phone number with country code and eliminate starting zero
         verificationCompleted: (credential) async {
           await auth.signInWithCredential(credential);
         },
@@ -50,7 +51,7 @@ class _SignUpState extends State<SignUp> {
               padding: const EdgeInsets.symmetric(vertical: 20),
               duration: Durations.long4,
               content: Text(
-                "SDT khong hop le",
+                "SĐT không hợp lệ",
                 textAlign: TextAlign.center,
                 style: TextStyle(
                     color: HungryColors().backYellow,
@@ -76,6 +77,9 @@ class _SignUpState extends State<SignUp> {
               if (mounted) Navigator.of(context).pop(); //pop loading circle
         },
         codeAutoRetrievalTimeout: (verificationId) {});
+    } on FirebaseAuthException catch(e) {
+      print(e.message);
+    } 
   }
 
   @override
@@ -87,7 +91,14 @@ class _SignUpState extends State<SignUp> {
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                Text("Điền SĐT của bạn", style: TextStyle(
+                  color: HungryColors().surfaceBrown,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 18
+                ),),
+                const SizedBox(height: 40),
                 Container(
                   height: 80,
                   alignment: Alignment.center,
@@ -129,7 +140,7 @@ class _SignUpState extends State<SignUp> {
                             NeoShadow(blurRadius: 20, offset: 10, opacity: 0.2)
                                 .shadow),
                     child: Text(
-                      "Login",
+                      "Đăng nhập",
                       style: phoneNumberStyle,
                     ),
                   ),

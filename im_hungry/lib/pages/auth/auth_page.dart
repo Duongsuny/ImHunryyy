@@ -2,8 +2,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:im_hungry/pages/auth/sign_up.dart';
 import 'package:im_hungry/pages/main_page.dart';
-import 'package:im_hungry/pages/setup.dart';
-import 'package:im_hungry/services/database_services.dart';
 
 class AuthPage extends StatelessWidget {
   const AuthPage({super.key});
@@ -15,9 +13,9 @@ class AuthPage extends StatelessWidget {
         stream: FirebaseAuth.instance.authStateChanges(),
         builder: (context, snapshot) {
           if(snapshot.hasData) {
-              return MainPage();
+              return const MainPage();
           } else {
-            return SignUp();
+            return const SignUp();
           }
         }
         ),

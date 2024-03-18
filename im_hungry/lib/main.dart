@@ -6,7 +6,7 @@ import 'package:im_hungry/firebase_options.dart';
 import 'package:im_hungry/models/time_together/time_together_model.dart';
 import 'package:im_hungry/pages/auth/auth_page.dart';
 import 'package:im_hungry/pages/auth/sign_up.dart';
-import 'package:im_hungry/pages/choose_role.dart';
+import 'package:im_hungry/pages/setup/choose_role.dart';
 import 'package:im_hungry/pages/components_test.dart';
 import 'package:im_hungry/pages/loading.dart';
 import 'package:im_hungry/pages/main_page.dart';
