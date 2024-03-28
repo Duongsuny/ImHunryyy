@@ -40,46 +40,48 @@ class _SignUpState extends State<SignUp> {
     Navigator.pushNamed(context, '/loading');
     try {
       await auth.verifyPhoneNumber(
-        phoneNumber: phoneNumberConverted(), //convert phone number with country code and eliminate starting zero
-        verificationCompleted: (credential) async {
-          await auth.signInWithCredential(credential);
-        },
-        verificationFailed: (e) {
-          if (e.code == 'invalid-phone-number') {
-            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-              margin: const EdgeInsets.symmetric(horizontal: 50, vertical: 20),
-              padding: const EdgeInsets.symmetric(vertical: 20),
-              duration: Durations.long4,
-              content: Text(
-                "SĐT không hợp lệ",
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                    color: HungryColors().backYellow,
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold),
-              ),
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(15)),
-              backgroundColor: const Color.fromARGB(255, 152, 75, 60),
-              behavior: SnackBarBehavior.floating,
-            ));
-          }
-        },
-        codeSent: (String verificationId, int? resendToken) async {
-          String smsCode = '123456';
-          PhoneAuthCredential credential = PhoneAuthProvider.credential(
-              verificationId: verificationId, smsCode: smsCode);
-          await auth.signInWithCredential(credential);
-          db
-              .collection("users")
-              .doc(auth.currentUser!.uid)
-              .set({"phoneNumber": phoneNumberConverted()});
-              if (mounted) Navigator.of(context).pop(); //pop loading circle
-        },
-        codeAutoRetrievalTimeout: (verificationId) {});
-    } on FirebaseAuthException catch(e) {
+          phoneNumber:
+              phoneNumberConverted(), //convert phone number with country code and eliminate starting zero
+          verificationCompleted: (credential) async {
+            await auth.signInWithCredential(credential);
+          },
+          verificationFailed: (e) {
+            if (e.code == 'invalid-phone-number') {
+              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                margin:
+                    const EdgeInsets.symmetric(horizontal: 50, vertical: 20),
+                padding: const EdgeInsets.symmetric(vertical: 20),
+                duration: Durations.long4,
+                content: Text(
+                  "SĐT không hợp lệ",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                      color: HungryColors().backYellow,
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold),
+                ),
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15)),
+                backgroundColor: const Color.fromARGB(255, 152, 75, 60),
+                behavior: SnackBarBehavior.floating,
+              ));
+            }
+          },
+          codeSent: (String verificationId, int? resendToken) async {
+            String smsCode = '123456';
+            PhoneAuthCredential credential = PhoneAuthProvider.credential(
+                verificationId: verificationId, smsCode: smsCode);
+            await auth.signInWithCredential(credential);
+            db
+                .collection("users")
+                .doc(auth.currentUser!.uid)
+                .set({"phoneNumber": phoneNumberConverted()});
+            if (mounted) Navigator.of(context).pop(); //pop loading circle
+          },
+          codeAutoRetrievalTimeout: (verificationId) {});
+    } on FirebaseAuthException catch (e) {
       print(e.message);
-    } 
+    }
   }
 
   @override
@@ -93,11 +95,13 @@ class _SignUpState extends State<SignUp> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text("Điền SĐT của bạn", style: TextStyle(
-                  color: HungryColors().surfaceBrown,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 18
-                ),),
+                Text(
+                  "Điền SĐT của bạn",
+                  style: TextStyle(
+                      color: HungryColors().surfaceBrown,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 18),
+                ),
                 const SizedBox(height: 40),
                 Container(
                   height: 80,

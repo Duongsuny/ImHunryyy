@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:im_hungry/colors.dart';
+import 'package:im_hungry/services/fill_information_service.dart';
 
 class ChooseRole extends StatelessWidget {
   const ChooseRole({super.key});
@@ -12,11 +13,21 @@ class ChooseRole extends StatelessWidget {
             style: TextStyle(
                 fontWeight: FontWeight.w800,
                 fontSize: 25,
-                color: Theme.of(context).primaryColor)),
+                color: HungryColors().surfaceBrown)),
         const SizedBox(height: 30),
-        const Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
-          Role(imgPath: "lib/assets/em.png", title: "Em bé"),
-          Role(imgPath: "lib/assets/anh.png", title: "Anh bé"),
+        Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
+          GestureDetector(
+              onTap: () {
+                InfoServices().chooseRole("GF");
+                Navigator.popAndPushNamed(context, '/');
+              },
+              child: const Role(imgPath: "lib/assets/em.png", title: "Em bé")),
+          GestureDetector(
+            onTap: () {
+              InfoServices().chooseRole("BF");
+              Navigator.popAndPushNamed(context, '/');
+            },
+              child: const Role(imgPath: "lib/assets/anh.png", title: "Anh bé")),
         ])
       ]),
     );
@@ -51,7 +62,7 @@ class Role extends StatelessWidget {
           style: TextStyle(
               fontWeight: FontWeight.bold,
               fontSize: 20,
-              color: Theme.of(context).primaryColor),
+              color: HungryColors().surfaceBrown),
         ),
       ],
     );
