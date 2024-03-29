@@ -21,7 +21,7 @@ class _SettingsState extends State<Settings> {
   void _signOut() async {
     await FirebaseAuth.instance.signOut();
     if (!context.mounted) return;
-    Navigator.of(context).pop();
+    Navigator.of(context).pushNamedAndRemoveUntil("/auth", (route) => false);
   }
 
   @override

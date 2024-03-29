@@ -75,7 +75,7 @@ class _SignUpState extends State<SignUp> {
             db
                 .collection("users")
                 .doc(auth.currentUser!.uid)
-                .set({"phoneNumber": phoneNumberConverted()});
+                .set({"phoneNumber": phoneNumberConverted()}, SetOptions(merge: true));
             if (mounted) Navigator.of(context).pop(); //pop loading circle
           },
           codeAutoRetrievalTimeout: (verificationId) {});

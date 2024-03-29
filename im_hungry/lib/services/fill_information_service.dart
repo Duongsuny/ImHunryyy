@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
 import 'package:im_hungry/models/infromation.dart';
 
 class InfoServices {
@@ -15,6 +14,7 @@ class InfoServices {
         .get();
 
     final data = snapshot.data();
+    print(data!["role"]);
     return data!["role"] != null;
   }
 
